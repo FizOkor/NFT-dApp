@@ -7,17 +7,16 @@
     },
     {
       "src": "nft_daap/package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "nft_daap/dist"
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "server/server.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "nft_daap/dist/assets/$1"
     },
     {
       "src": "/(.*)",
