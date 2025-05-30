@@ -16,28 +16,8 @@
       "dest": "server/server.js"
     },
     {
-      "src": "/assets/(.*\\.js)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "Content-Type": "application/javascript"
-      }
-    },
-    {
-      "src": "/assets/(.*\\.css)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "Content-Type": "text/css"
-      }
-    },
-    {
-      "src": "/assets/(.*\\.(png|jpg|jpeg|gif|svg|webp))",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
       "src": "/(.*)",
-      "dest": "/nft_daap/build/index.html"
+      "dest": "nft_daap/dist/index.html"
     }
   ]
 }
