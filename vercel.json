@@ -9,7 +9,7 @@
       "src": "nft_daap/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "nft_daap"
+        "distDir": "assets"
       }
     }
   ],
