@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
@@ -12,19 +12,24 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
+  
+  // Critical production settings
   base: '/',
   build: {
     outDir: 'dist',
+    assetsDir: 'assets',
     emptyOutDir: true,
     sourcemap: false,
     rollupOptions: {
-      external: ['@emotion/react', '@emotion/styled'],
       output: {
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
         manualChunks: {
           react: ['react', 'react-dom'],
+          mui: ['@mui/material', '@mui/icons-material'],
           ethers: ['ethers'],
-          lighthouse: ['@lighthouse-web3/sdk'],
-          mui: ['@mui/material', '@mui/icons-material']
+          lighthouse: ['@lighthouse-web3/sdk']
         }
       }
     }
@@ -45,4 +50,4 @@ export default defineConfig({
       '@mui/icons-material'
     ]
   }
-});
+})
