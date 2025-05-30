@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* import '@fontsource/Montserrat'; */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.glitch-font {
+  font-family: 'Press Start 2P', system-ui;
+}
+
+.bg-navy{
+  background-color: #14213D;
+}
+.text-navy{
+  color: #14213D;
+}
