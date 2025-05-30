@@ -17,11 +17,11 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "/nft_daap/dist/assets/$1"
+      "dest": "nft_daap/dist/assets/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/nft_daap/dist/index.html"
+      "dest": "nft_daap/dist/index.html"
     }
   ]
 }
