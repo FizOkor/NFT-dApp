@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [
@@ -12,8 +12,6 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
-  
-  // Critical production settings
   base: '/',
   build: {
     outDir: 'dist',
@@ -50,4 +48,4 @@ export default defineConfig({
       '@mui/icons-material'
     ]
   }
-})
+});

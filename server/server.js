@@ -1,4 +1,5 @@
 require('dotenv').config();
+console.log('Using API Key:', process.env.LIGHTHOUSE_API_KEY);
 const express = require('express');
 const cors = require('cors');
 const lighthouse = require('@lighthouse-web3/sdk');
@@ -7,14 +8,15 @@ const { Blob } = require('buffer');
 
 // Initialize Express
 const app = express();
-const PORT = 3001;
 
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? 'https://your-frontend-domain.com' 
-    : 'http://localhost:3001'
+    ? process.env.FRONTEND_URL 
+    : 'http://localhost:3000'
 }));
+console.log('Node Env:', process.env.NODE_ENV);
+
 app.use(express.json());
 
 // Configure Multer for file uploads
@@ -23,6 +25,12 @@ const upload = multer({ storage: multer.memoryStorage() });
 // NFT Upload Endpoint
 app.post('/api/upload-nft', upload.single('image'), async (req, res) => {
   try {
+    console.log('Using API Key:', process.env.LIGHTHOUSE_API_KEY);
+    
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    console.log('Received file:', req.file.originalname);
     // 1. Upload Image
     const imageResponse = await lighthouse.uploadBuffer(
       req.file.buffer,
@@ -48,7 +56,7 @@ app.post('/api/upload-nft', upload.single('image'), async (req, res) => {
       'metadata.json'
     );
 
-    // 4. Return Final Metadata URL
+    // Final Metadata URL
     res.json({
       metadataUrl: `https://gateway.lighthouse.storage/ipfs/${metadataResponse.data.Hash}`
     });
@@ -59,7 +67,11 @@ app.post('/api/upload-nft', upload.single('image'), async (req, res) => {
   }
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`NFT Proxy Server running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  const PORT = 3001;
+  app.listen(PORT, () => {
+    console.log(`NFT Proxy Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

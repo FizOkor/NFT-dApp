@@ -2,25 +2,34 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/server.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "nft_daap/package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "server/server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "server/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "nft_daap/dist/index.html"
-    }
-  ]
+  {
+    "src": "/api/(.*)",
+    "dest": "server/server.js"
+  },
+  {
+    "src": "/assets/(.*)",
+    "dest": "/nft_daap/assets/$1"
+  },
+  {
+    "src": "/([^/]+\\.\\w+)$",
+    "dest": "/nft_daap/$1"
+  },
+  {
+    "src": "/(.*)",
+    "dest": "/nft_daap"
+  }
+]
+
 }
