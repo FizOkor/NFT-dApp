@@ -10,6 +10,7 @@ export async function uploadToNFTStorage(name, description, imageFile) {
     body: formData,
     headers: { 'Accept': 'application/json' }
   });
+  console.log(response)
 
   const { metadataUrl } = await response.json();
   
