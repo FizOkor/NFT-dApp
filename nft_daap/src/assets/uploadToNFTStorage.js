@@ -5,14 +5,14 @@ export async function uploadToNFTStorage(name, description, imageFile) {
   formData.append('description', description);
   
   
-  const response = await fetch(`${window.location.origin}/api/upload-nft`, {
+  const response = await fetch(`/api/upload-nft`, {
     method: 'POST',
     body: formData,
     headers: { 'Accept': 'application/json' }
   });
   console.log(response)
 
-  const { metadataUrl } = await response.json();
+  const { metadataUrl } = await response;
   
   return metadataUrl;
 }
