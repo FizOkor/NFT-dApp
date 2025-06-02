@@ -33,14 +33,14 @@ app.post('/api/upload-nft', upload.single('image'), async (req, res) => {
     console.log('Received file:', req.file.originalname);
     // 1. Upload Image
     const imageResponse = await lighthouse.uploadBuffer(
-      file.buffer,
+      req.file.buffer,
       process.env.LIGHTHOUSE_API_KEY,
-      file.originalname,
+      req.file.originalname,
       undefined,
       undefined,
       {
         'Accept': 'application/json',  // ← Critical addition
-        'Content-Type': file.mimetype,
+        'Content-Type': req.file.mimetype,
         'Authorization': `Bearer ${process.env.LIGHTHOUSE_API_KEY}`
       }
     );
