@@ -33,9 +33,16 @@ app.post('/api/upload-nft', upload.single('image'), async (req, res) => {
     console.log('Received file:', req.file.originalname);
     // 1. Upload Image
     const imageResponse = await lighthouse.uploadBuffer(
-      req.file.buffer,
+      file.buffer,
       process.env.LIGHTHOUSE_API_KEY,
-      req.file.originalname
+      file.originalname,
+      undefined,
+      undefined,
+      {
+        'Accept': 'application/json',  // ← Critical addition
+        'Content-Type': file.mimetype,
+        'Authorization': `Bearer ${process.env.LIGHTHOUSE_API_KEY}`
+      }
     );
     const imageUrl = `https://gateway.lighthouse.storage/ipfs/${imageResponse.data.Hash}`;
 
@@ -63,6 +70,7 @@ app.post('/api/upload-nft', upload.single('image'), async (req, res) => {
 
   } catch (error) {
     console.error('NFT Upload Error:', error);
+    console.log(typeof(error));
     res.status(500).json({ error: 'NFT creation failed' });
   }
 });
